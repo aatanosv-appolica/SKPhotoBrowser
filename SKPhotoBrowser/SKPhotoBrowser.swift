@@ -41,6 +41,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
     public var disableVerticalSwipe: Bool = false
     public var isForceStatusBarHidden: Bool = false
     public var moreButton = UIButton(type: UIButtonType.Custom)
+    public var moreButtonImage = UIImage(named: "SKPhotoBrowser.bundle/images/close_button")
     
     // actions
     private var actionSheet: UIActionSheet!
@@ -219,10 +220,8 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
         
         
         // more
-        let moreImage = UIImage(named: "SKPhotoBrowser.bundle/images/close_button", inBundle: bundle, compatibleWithTraitCollection: nil) ?? UIImage()
-        moreButton.setImage(moreImage, forState: UIControlState.Normal)
+        moreButton.setImage(moreButtonImage, forState: UIControlState.Normal)
         moreButton.frame = moreButtonHideFrame
-//        moreButton.imageEdgeInsets = UIEdgeInsetsMake(15.25, 15.25, 15.25, 15.25)
         moreButton.backgroundColor = UIColor.clearColor()
         moreButton.alpha = 0.0
         view.addSubview(moreButton)
