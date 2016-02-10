@@ -56,11 +56,11 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
     private var pagingScrollView: UIScrollView!
     private var panGesture: UIPanGestureRecognizer!
     private var doneButton: UIButton!
-    private var doneButtonShowFrame: CGRect = CGRect(x: 5, y: 10, width: 44, height: 44)
+    private var doneButtonShowFrame: CGRect = CGRect(x: 5, y: 15, width: 44, height: 44)
     private var doneButtonHideFrame: CGRect = CGRect(x: 5, y: -20, width: 44, height: 44)
     public var moreButton: UIButton!
-    private var moreButtonShowFrame: CGRect = CGRect(x: CGRectGetWidth(UIScreen.mainScreen().bounds) - 50, y: 10, width: 44, height: 44)
-    private var moreButtonHideFrame: CGRect = CGRect(x: 5, y: -20, width: 44, height: 44)
+    private var moreButtonShowFrame: CGRect = CGRect(x: CGRectGetWidth(UIScreen.mainScreen().bounds) - 50, y: 15, width: 44, height: 44)
+    private var moreButtonHideFrame: CGRect = CGRect(x: CGRectGetWidth(UIScreen.mainScreen().bounds) - 50, y: -20, width: 44, height: 44)
     
     // photo's paging
     private var visiblePages: Set<SKZoomingScrollView> = Set()
@@ -219,7 +219,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
         
         
         // more
-        let moreImage = UIImage(named: "SKPhotoBrowser.bundle/images/btn_common_close_wh", inBundle: bundle, compatibleWithTraitCollection: nil) ?? UIImage()
+        let moreImage = UIImage(named: "SKPhotoBrowser.bundle/images/close_button", inBundle: bundle, compatibleWithTraitCollection: nil) ?? UIImage()
         moreButton = UIButton(type: UIButtonType.Custom)
         moreButton.setImage(moreImage, forState: UIControlState.Normal)
         moreButton.frame = moreButtonHideFrame
@@ -561,6 +561,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
                 animations: { () -> Void in
                     self.resizableImageView.frame = finalImageViewFrame
                     self.doneButton.alpha = 1.0
+                    self.moreButton.alpha = 1.0
                     self.doneButton.frame = self.doneButtonShowFrame
                     self.moreButton.frame = self.moreButtonShowFrame
                 },
@@ -580,6 +581,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
             UIView.animateWithDuration(animationDuration,
                 animations: { () -> Void in
                     self.doneButton.alpha = 1.0
+                    self.moreButton.alpha = 1.0
                     self.doneButton.frame = self.doneButtonShowFrame
                     self.moreButton.frame = self.moreButtonShowFrame
                 },
@@ -812,6 +814,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
                 self.toolBar.alpha = alpha
                 self.toolBar.frame = hidden ? self.frameForToolbarHideAtOrientation() : self.frameForToolbarAtOrientation()
                 self.doneButton.alpha = alpha
+                self.moreButton.alpha = alpha
                 self.doneButton.frame = hidden ? self.doneButtonHideFrame : self.doneButtonShowFrame
                 self.moreButton.frame = hidden ? self.moreButtonHideFrame : self.moreButtonShowFrame
                 for v in captionViews {
