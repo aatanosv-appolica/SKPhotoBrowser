@@ -12,7 +12,7 @@ import ObjectiveC
 var ActionBlockKey: UInt8 = 0
 
 // a type for our action block closure
-typealias BlockButtonActionBlock = (sender: UIButton) -> Void
+public typealias BlockButtonActionBlock = (sender: UIButton) -> Void
 
 class ActionBlockWrapper : NSObject {
     var block : BlockButtonActionBlock
@@ -22,12 +22,12 @@ class ActionBlockWrapper : NSObject {
 }
 
 extension UIButton {
-    func block_setAction(block: BlockButtonActionBlock) {
+    public func block_setAction(block: BlockButtonActionBlock) {
         objc_setAssociatedObject(self, &ActionBlockKey, ActionBlockWrapper(block: block), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         addTarget(self, action: "block_handleAction:", forControlEvents: .TouchUpInside)
     }
     
-    func block_handleAction(sender: UIButton) {
+    public func block_handleAction(sender: UIButton) {
         let wrapper = objc_getAssociatedObject(self, &ActionBlockKey) as! ActionBlockWrapper
         wrapper.block(sender: sender)
     }
