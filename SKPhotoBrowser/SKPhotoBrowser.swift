@@ -32,6 +32,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
     
     // custom abilities
     public var displayAction: Bool = true
+    public var displayMoreButton: Bool = true
     public var shareExtraCaption: String? = nil
     public var actionButtonTitles: [String]?
     public var displayToolbar: Bool = true
@@ -55,8 +56,11 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
     private var pagingScrollView: UIScrollView!
     private var panGesture: UIPanGestureRecognizer!
     private var doneButton: UIButton!
-    private var doneButtonShowFrame: CGRect = CGRect(x: 5, y: 5, width: 44, height: 44)
+    private var doneButtonShowFrame: CGRect = CGRect(x: 5, y: 10, width: 44, height: 44)
     private var doneButtonHideFrame: CGRect = CGRect(x: 5, y: -20, width: 44, height: 44)
+    public var moreButton: UIButton!
+    private var moreButtonShowFrame: CGRect = CGRect(x: CGRectGetWidth(UIScreen.mainScreen().bounds) - 50, y: 10, width: 44, height: 44)
+    private var moreButtonHideFrame: CGRect = CGRect(x: 5, y: -20, width: 44, height: 44)
     
     // photo's paging
     private var visiblePages: Set<SKZoomingScrollView> = Set()
@@ -113,7 +117,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
             }
         }
     }
-
+    
     public convenience init(originImage: UIImage, photos: [AnyObject], animatedFromView: UIView) {
         self.init(nibName: nil, bundle: nil)
         self.senderOriginImage = originImage
@@ -212,6 +216,18 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
         doneButton.addTarget(self, action: "doneButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         doneButton.alpha = 0.0
         view.addSubview(doneButton)
+        
+        
+        // more
+        let moreImage = UIImage(named: "SKPhotoBrowser.bundle/images/btn_common_close_wh", inBundle: bundle, compatibleWithTraitCollection: nil) ?? UIImage()
+        moreButton = UIButton(type: UIButtonType.Custom)
+        moreButton.setImage(moreImage, forState: UIControlState.Normal)
+        moreButton.frame = moreButtonHideFrame
+        moreButton.imageEdgeInsets = UIEdgeInsetsMake(15.25, 15.25, 15.25, 15.25)
+        moreButton.backgroundColor = UIColor.clearColor()
+//        moreButton.addTarget(self, action: "doneButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        moreButton.alpha = 0.0
+        view.addSubview(moreButton)
         
         // action button
         toolActionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "actionButtonPressed")
@@ -351,6 +367,8 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
         
         isPerformingLayout = false
         
+        moreButton.hidden = !displayMoreButton
+        
         // add pangesture if need
         if !disableVerticalSwipe {
             view.addGestureRecognizer(panGesture)
@@ -398,7 +416,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
         let navHeight = navigationController?.navigationBar.frame.size.height ?? 44
         
         return CGRect(x: pageFrame.origin.x, y: pageFrame.size.height - captionSize.height - navHeight,
-                      width: pageFrame.size.width, height: captionSize.height)
+            width: pageFrame.size.width, height: captionSize.height)
     }
     
     public func frameForPageAtIndex(index: Int) -> CGRect {
@@ -431,7 +449,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
         toolPreviousButton.enabled = (currentPageIndex > 0)
         toolNextButton.enabled = (currentPageIndex < numberOfPhotos - 1)
     }
-   
+    
     // MARK: - panGestureRecognized
     public func panGestureRecognized(sender: UIPanGestureRecognizer) {
         
@@ -455,7 +473,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
         
         translatedPoint = CGPoint(x: firstX, y: firstY + translatedPoint.y)
         scrollView.center = translatedPoint
-     
+        
         view.opaque = true
         
         // gesture end
@@ -484,8 +502,8 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
                 UIView.commitAnimations()
                 
                 dismissPhotoBrowser()
-             } else {
-            
+            } else {
+                
                 // Continue Showing View
                 isDraggingPhoto = false
                 setNeedsStatusBarAppearanceUpdate()
@@ -544,6 +562,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
                     self.resizableImageView.frame = finalImageViewFrame
                     self.doneButton.alpha = 1.0
                     self.doneButton.frame = self.doneButtonShowFrame
+                    self.moreButton.frame = self.moreButtonShowFrame
                 },
                 completion: { (Bool) -> Void in
                     self.view.alpha = 1.0
@@ -562,6 +581,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
                 animations: { () -> Void in
                     self.doneButton.alpha = 1.0
                     self.doneButton.frame = self.doneButtonShowFrame
+                    self.moreButton.frame = self.moreButtonShowFrame
                 },
                 completion: { (Bool) -> Void in
                     self.view.alpha = 1.0
@@ -604,7 +624,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
             self.delegate?.didDismissAtPageIndex?(self.currentPageIndex)
         }
     }
-
+    
     //MARK: - image
     private func getImageFromView(sender: UIView) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(sender.frame.size, true, 2.0)
@@ -684,7 +704,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
         if lastIndex > numberOfPhotos - 1 {
             lastIndex = numberOfPhotos - 1
         }
-       
+        
         for var index = firstIndex; index <= lastIndex; index++ {
             if isDisplayingPageForIndex(index) {
                 continue
@@ -735,8 +755,8 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
         var thePage: SKZoomingScrollView = SKZoomingScrollView()
         for page in visiblePages {
             if (page.tag - pageIndexTagOffset) == index {
-               thePage = page
-               break
+                thePage = page
+                break
             }
         }
         return thePage
@@ -793,6 +813,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
                 self.toolBar.frame = hidden ? self.frameForToolbarHideAtOrientation() : self.frameForToolbarAtOrientation()
                 self.doneButton.alpha = alpha
                 self.doneButton.frame = hidden ? self.doneButtonHideFrame : self.doneButtonShowFrame
+                self.moreButton.frame = hidden ? self.moreButtonHideFrame : self.moreButtonShowFrame
                 for v in captionViews {
                     v.alpha = alpha
                 }
@@ -819,7 +840,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
             dismissPhotoBrowser()
         }
     }
-
+    
     // MARK: Action Button
     public func actionButtonPressed() {
         let photo = photoAtIndex(currentPageIndex)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A575A6C1C6B3CDA000CD51F /* UIButton+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A575A6B1C6B3CDA000CD51F /* UIButton+Block.swift */; };
 		8909B5341BC791280060A053 /* SKPhotoBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8909B5331BC791280060A053 /* SKPhotoBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8909B5431BC791510060A053 /* SKCaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909B53B1BC791510060A053 /* SKCaptionView.swift */; };
 		8909B5441BC791510060A053 /* SKDetectingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909B53C1BC791510060A053 /* SKDetectingImageView.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A575A6B1C6B3CDA000CD51F /* UIButton+Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Block.swift"; sourceTree = "<group>"; };
 		8909B5301BC791280060A053 /* SKPhotoBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SKPhotoBrowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8909B5331BC791280060A053 /* SKPhotoBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKPhotoBrowser.h; sourceTree = "<group>"; };
 		8909B5351BC791280060A053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				8909B5331BC791280060A053 /* SKPhotoBrowser.h */,
 				8909B5351BC791280060A053 /* Info.plist */,
 				8909B54C1BC7916E0060A053 /* SKPhotoBrowser.bundle */,
+				3A575A6B1C6B3CDA000CD51F /* UIButton+Block.swift */,
 			);
 			path = SKPhotoBrowser;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				8909B5431BC791510060A053 /* SKCaptionView.swift in Sources */,
 				8909B5491BC791510060A053 /* SKPhotoBrowser.swift in Sources */,
 				8909B5451BC791510060A053 /* SKDetectingView.swift in Sources */,
+				3A575A6C1C6B3CDA000CD51F /* UIButton+Block.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
