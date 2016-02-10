@@ -40,6 +40,7 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
     public var displayBackAndForwardButton: Bool = true
     public var disableVerticalSwipe: Bool = false
     public var isForceStatusBarHidden: Bool = false
+    public var moreButton = UIButton(type: UIButtonType.Custom)
     
     // actions
     private var actionSheet: UIActionSheet!
@@ -58,7 +59,6 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
     private var doneButton: UIButton!
     private var doneButtonShowFrame: CGRect = CGRect(x: 5, y: 15, width: 44, height: 44)
     private var doneButtonHideFrame: CGRect = CGRect(x: 5, y: -20, width: 44, height: 44)
-    public var moreButton: UIButton!
     private var moreButtonShowFrame: CGRect = CGRect(x: CGRectGetWidth(UIScreen.mainScreen().bounds) - 50, y: 15, width: 44, height: 44)
     private var moreButtonHideFrame: CGRect = CGRect(x: CGRectGetWidth(UIScreen.mainScreen().bounds) - 50, y: -20, width: 44, height: 44)
     
@@ -220,7 +220,6 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
         
         // more
         let moreImage = UIImage(named: "SKPhotoBrowser.bundle/images/close_button", inBundle: bundle, compatibleWithTraitCollection: nil) ?? UIImage()
-        moreButton = UIButton(type: UIButtonType.Custom)
         moreButton.setImage(moreImage, forState: UIControlState.Normal)
         moreButton.frame = moreButtonHideFrame
 //        moreButton.imageEdgeInsets = UIEdgeInsetsMake(15.25, 15.25, 15.25, 15.25)
