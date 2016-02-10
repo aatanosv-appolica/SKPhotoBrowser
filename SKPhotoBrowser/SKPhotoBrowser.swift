@@ -223,9 +223,8 @@ public class SKPhotoBrowser: UIViewController, UIScrollViewDelegate, UIActionShe
         moreButton = UIButton(type: UIButtonType.Custom)
         moreButton.setImage(moreImage, forState: UIControlState.Normal)
         moreButton.frame = moreButtonHideFrame
-        moreButton.imageEdgeInsets = UIEdgeInsetsMake(15.25, 15.25, 15.25, 15.25)
+//        moreButton.imageEdgeInsets = UIEdgeInsetsMake(15.25, 15.25, 15.25, 15.25)
         moreButton.backgroundColor = UIColor.clearColor()
-//        moreButton.addTarget(self, action: "doneButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         moreButton.alpha = 0.0
         view.addSubview(moreButton)
         

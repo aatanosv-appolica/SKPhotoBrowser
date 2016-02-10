@@ -27,7 +27,7 @@ extension UIButton {
         addTarget(self, action: "block_handleAction:", forControlEvents: .TouchUpInside)
     }
     
-    public func block_handleAction(sender: UIButton) {
+    func block_handleAction(sender: UIButton) {
         let wrapper = objc_getAssociatedObject(self, &ActionBlockKey) as! ActionBlockWrapper
         wrapper.block(sender: sender)
     }
